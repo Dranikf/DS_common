@@ -24,8 +24,8 @@ def get_selcond_emiss_25_75(col, constant = 1.5, cut_type = "both" ):
     #               "right": deletes only right tale
     #               "both": deletes both tales
     # outputs:
-    # pd.Seires with boolean type - True if the observation interpreted as an emission
-    #                               else False 
+    # pd.Seires with boolean type - False if the observation interpreted as an emission
+    #                               else True 
 
     result = np.ones(col.shape).astype('bool')
     quant = get_frame_quantiles_25_75(col)
@@ -33,8 +33,8 @@ def get_selcond_emiss_25_75(col, constant = 1.5, cut_type = "both" ):
     range_25_75 = quant['75%'] - quant['25%']
 
     if (cut_type == "right") | (cut_type == "both"):
-        result = result & (col < (quant['75%'] + range_25_75 * constant))
+        result = result & (col <= (quant['75%'] + range_25_75 * constant))
     if (cut_type == "left") | (cut_type == "both"):
-        result = result & (col > (quant['25%'] - range_25_75 * constant))
+        result = result & (col >= (quant['25%'] - range_25_75 * constant))
 
     return result
