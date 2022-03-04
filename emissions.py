@@ -1,6 +1,7 @@
 import numpy as np
 
-# Work with emissions
+# this file represents several of fucntions wich
+# can be used for emissions management
 
 def get_frame_quantiles_25_75(col):
     '''The function returns 25 and 75 persentiles of getted column'''
