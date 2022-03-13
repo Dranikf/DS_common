@@ -38,4 +38,6 @@ def get_selcond_emiss_25_75(col, constant = 1.5, cut_type = "both" ):
     if (cut_type == "left") | (cut_type == "both"):
         result = result & (col >= (quant['25%'] - range_25_75 * constant))
 
+    result[col.isna()] = True
+
     return result
