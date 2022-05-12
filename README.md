@@ -4,7 +4,22 @@ Solutions of my common tasks in DS sphere. Supposed to be used primarily as a su
 It contains the following groups:
 
 # visualisation
-Methods which solve some problems associated with data visualisation.
+Funcitons which solve some problems associated with data visualisation.
 Exampes here: https://github.com/Dranikf/DS_common/blob/main/visualisations_test.ipynb
 
 **get_meshtraces** - helps to get arguments for `set_traces` method of figure with using `numpy.meshgrid`.
+
+# data_description
+
+Functions which will help to show data in nice form. Examples can be founded here: https://github.com/Dranikf/DS_common/blob/main/data_description.ipynb
+
+**get_col_av_values** - helps to get availible values of `pandas.Series` in one line of code;<br>
+**get_col_obj_count** - for object or categorial column returns number of levels as string, and "-" for numeric variable;<br>
+**get_columns_desription** - for every column `pandas.DataFrame` returns data type, availible values, number of values and count of NA values.
+
+# emissions
+
+Functions which helps to deal with emissions in data. Examples can be founded here: https://github.com/Dranikf/DS_common/blob/main/emissions_test.ipynb
+
+**get_frame_quantiles_25_75** - for `pandas.Series` column returns 25% and 75% persentiles;<br>
+**get_selcond_emiss_25_75** - for `pandas.Series` helps to get selection condition according to simple emission detection rule <img src="https://latex.codecogs.com/gif.latex?[x_{25}-b(x_{75}-x_{25});x_{75}+b(x_{75}-x_{25})]"/>.
