@@ -1,6 +1,8 @@
 # funciton for data processing
 import pandas as pd
 
+from sklearn.preprocessing import OneHotEncoder
+
 
 def insert_next(df, col_name, transform_col, new_name = None):
     '''
@@ -37,3 +39,40 @@ def get_num_cond(df):
                 pd.Series contains boolen dtype condition.
     '''
     return df.apply(lambda x: pd.api.types.is_numeric_dtype(x.dtype))
+
+
+
+def pd_OHE(df, sk_OHE_kwarg = {}):
+    '''
+        One hot encoding for pandas.DataFrame. Result type steel
+        pandas.DataFrame and columns have readable names, in fomat colname_catname.
+            Inputs:
+                df - pandas.DataFrame for one hot encoding;
+                sk_OHE_kwags - dict which contains sklearn.preprocessing.OneHotEncoding arguments.
+            Output pandas.DataFrame with incoed features.
+    '''
+    
+    def name_cat(cats, name, drop_idx = None):
+        '''
+            For givent categoryes and name
+            returns list of strings "category_name" with
+            len of cats array
+        '''
+        # if some columns droped we need to delete related
+        # category from columns names
+        if not drop_idx is None:
+            cats = np.delete(cats, drop_idx)
+            
+        return list(map(lambda x: name + "_" + str(x), cats))
+    
+    sk_OHE_kwarg["sparse"] = False
+    my_ohe = OneHotEncoder(**sk_OHE_kwarg).fit(df)
+    
+    columns = []
+    for i in range(len(my_ohe.categories_)):
+        if not my_ohe.drop_idx_ is None:
+            columns += name_cat(my_ohe.categories_[i], df.columns[i], drop_idx = my_ohe.drop_idx_[i])
+        else:
+            columns += name_cat(my_ohe.categories_[i], df.columns[i])
+    
+    return columns
