@@ -24,3 +24,14 @@ def insert_next(df, col_name, transform_col, new_name = None):
         )
     
     return df
+
+
+def get_num_cond(df):
+    '''
+        Get condition for selection from pandas.DataFrame numeric data types
+            Inputs:
+                df - pandas.DataFrame which numeric columns you have to choose;
+            Output
+                pd.Series contains boolen dtype condition.
+    '''
+    return df.apply(lambda x: pd.api.types.is_numeric_dtype(x.dtype))
