@@ -1,4 +1,6 @@
 # funciton for data processing
+import pandas as pd
+
 
 def insert_next(df, col_name, transform_col, new_name = None):
     '''
