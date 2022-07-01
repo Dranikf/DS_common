@@ -1,5 +1,6 @@
 # funciton for data processing
 import pandas as pd
+import numpy as np
 
 from sklearn.preprocessing import OneHotEncoder
 
@@ -75,4 +76,4 @@ def pd_OHE(df, sk_OHE_kwarg = {}):
         else:
             columns += name_cat(my_ohe.categories_[i], df.columns[i])
     
-    return columns
+    return pd.DataFrame(my_ohe.transform(df), columns = columns, index = df.index)
