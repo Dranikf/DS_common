@@ -61,3 +61,18 @@ def get_columns_desription(df):
         ]
     
     return result
+
+def get_most_freq_by_cond(ser, cond):
+    '''
+        Returns value from series which has the 
+        most frequent manifestation of the trait 
+        specified in cond
+        Inputs:
+            ser - pandas.Series with size n_sample 
+                    which value must be selected;
+            cond - condition which helps select values 
+                    with the manifestation of the trait;
+        Output required value from ser.
+            
+    '''
+    return (ser[cond].value_counts()/ser.value_counts()).idxmax()
