@@ -16,7 +16,8 @@ Functions which will help to show data in nice form. Examples can be found here:
 **get_col_av_values** - helps to get availible values of `pandas.Series` in one line of code;<br>
 **get_col_obj_count** - for object or categorial column returns number of levels as string, and "-" for numeric variable;<br>
 **get_columns_desription** - for every column `pandas.DataFrame` returns data type, availible values, number of values and count of NA values; <br>
-**get_most_freq** - returns value from series which has the most frequent manifestation of the trait specified in cond.
+**get_most_freq** - returns value from series which has the most frequent manifestation of the trait specified in cond;<br>
+**get_join_repl_rule** - get an joining rule for the levels of some variable for further use in `pandas.Series.replace`.
 
 # emissions
 
