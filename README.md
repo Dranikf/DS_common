@@ -37,6 +37,6 @@ Functions which deal with excel files. Usually can be used in a combination with
 
 Functions which sepeed up data processing. Examples can be found here: https://github.com/Dranikf/DS_common/blob/main/data_processing.ipynb.
 
-**insert_next** - quick insertion following the column selected by name for pandas.DataFrame;
-**get_num_cond** - get condition for selection from pandas.DataFrame numeric data types;
+**insert_next** - quick insertion following the column selected by name for pandas.DataFrame;<br>
+**get_num_cond** - get condition for selection from pandas.DataFrame numeric data types;<br>
 **pd_OHE** - one hot encoding for pandas.DataFrame. Result type steel pandas.DataFrame and columns have readable names, in fomat colname_catname.
