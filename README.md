@@ -15,7 +15,8 @@ Functions which will help to show data in nice form. Examples can be found here:
 
 **get_col_av_values** - helps to get availible values of `pandas.Series` in one line of code;<br>
 **get_col_obj_count** - for object or categorial column returns number of levels as string, and "-" for numeric variable;<br>
-**get_columns_desription** - for every column `pandas.DataFrame` returns data type, availible values, number of values and count of NA values.
+**get_columns_desription** - for every column `pandas.DataFrame` returns data type, availible values, number of values and count of NA values; <br>
+**get_most_freq** - returns value from series which has the most frequent manifestation of the trait specified in cond.
 
 # emissions
 
@@ -32,7 +33,7 @@ Functions which deal with excel files. Usually can be used in a combination with
 **save_double_column_df** - by default `pandas` saves multiindex column with some empty cells, this method helps to avoid this problem. <br>
 
 
-# Data processing
+# data processing
 
 Functions which sepeed up data processing. Examples can be found here: https://github.com/Dranikf/DS_common/blob/main/data_processing.ipynb.
 
