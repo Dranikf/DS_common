@@ -76,3 +76,25 @@ def get_most_freq_by_cond(ser, cond):
             
     '''
     return (ser[cond].value_counts()/ser.value_counts()).idxmax()
+
+
+def get_merge_repl_rule(joiners):
+    '''
+        Get an merging rule for the levels of some variable 
+        for further use in pandas.Series.replace
+        Inputs:
+            joiners - where each nested list is a list 
+                      of levels to form a new, merged level;
+        Output dictionary with format {<old_level>:<new_level>}
+    '''
+    
+    rule = {}
+    
+    for join_lev in joiners:
+        res_level = join_lev[0]
+        for lev in join_lev[1:]:
+            res_level += "_" + lev
+        for lev in join_lev:
+            rule[lev] = res_level
+            
+    return rule
