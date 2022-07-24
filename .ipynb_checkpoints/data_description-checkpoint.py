@@ -76,18 +76,3 @@ def get_most_freq_by_cond(ser, cond):
             
     '''
     return (ser[cond].value_counts()/ser.value_counts()).idxmax()
-
-def np_replace(arr, rule):
-    '''
-        Replacing funciton for numpy array.
-        Inputs:
-            arr - numpy array to be transformed;
-            rule - rule as dict.
-        Output trancfromed numpy array.
-    '''
-    rule_values = np.array(list(rule.values()))
-    rule_keys = np.array(list(rule.keys()))
-        
-    replacer = lambda key: rule_values[key == rule_keys][0] if np.any(key == rule_keys) else key
-        
-    return np.array(list(map(replacer, arr.ravel()))).reshape(arr.shape)

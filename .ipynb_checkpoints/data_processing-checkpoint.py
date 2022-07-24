@@ -79,11 +79,19 @@ def pd_OHE(df, sk_OHE_kwarg = {}):
     return pd.DataFrame(my_ohe.transform(df), columns = columns, index = df.index)
 
 def np_replace(arr, rule):
-    
+    '''
+        Replacing funciton for numpy array.
+        Inputs:
+            arr - numpy array to be transformed;
+            rule - rule as dict.
+        Output trancfromed numpy array.
+    '''
     rule_values = np.array(list(rule.values()))
     rule_keys = np.array(list(rule.keys()))
-    
-    return np.array(list(map(lambda key: rule_values[key == rule_keys][0], arr)))
+        
+    replacer = lambda key: rule_values[key == rule_keys][0] if np.any(key == rule_keys) else key
+        
+    return np.array(list(map(replacer, arr.ravel()))).reshape(arr.shape)
 
 def get_merge_repl_rule(joiners):
     '''
