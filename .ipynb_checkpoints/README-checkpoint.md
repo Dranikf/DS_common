@@ -17,7 +17,6 @@ Functions which will help to show data in nice form. Examples can be found here:
 **get_col_obj_count** - for object or categorial column returns number of levels as string, and "-" for numeric variable;<br>
 **get_columns_desription** - for every column `pandas.DataFrame` returns data type, availible values, number of values and count of NA values; <br>
 **get_most_freq** - returns value from series which has the most frequent manifestation of the trait specified in cond;<br>
-**get_merge_repl_rule** - get a merging rule for the levels of some variable for further use in `pandas.Series.replace`.
 
 # emissions
 
@@ -40,4 +39,6 @@ Functions which sepeed up data processing. Examples can be found here: https://g
 
 **insert_next** - quick insertion following the column selected by name for pandas.DataFrame;<br>
 **get_num_cond** - get condition for selection from pandas.DataFrame numeric data types;<br>
-**pd_OHE** - one hot encoding for pandas.DataFrame. Result type steel pandas.DataFrame and columns have readable names, in fomat colname_catname.
+**pd_OHE** - one hot encoding for pandas.DataFrame. Result type steel pandas.DataFrame and columns have readable names, in fomat colname_catname;<br>
+**get_merge_repl_rule** - get a merging rule for the levels of some variable for further use in `pandas.Series.replace`; <br>
+**np_replace** - replacing funciton for numpy array.

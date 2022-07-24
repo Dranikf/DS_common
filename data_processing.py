@@ -77,3 +77,31 @@ def pd_OHE(df, sk_OHE_kwarg = {}):
             columns += name_cat(my_ohe.categories_[i], df.columns[i])
     
     return pd.DataFrame(my_ohe.transform(df), columns = columns, index = df.index)
+
+def np_replace(arr, rule):
+    
+    rule_values = np.array(list(rule.values()))
+    rule_keys = np.array(list(rule.keys()))
+    
+    return np.array(list(map(lambda key: rule_values[key == rule_keys][0], arr)))
+
+def get_merge_repl_rule(joiners):
+    '''
+        Get an merging rule for the levels of some variable 
+        for further use in pandas.Series.replace
+        Inputs:
+            joiners - where each nested list is a list 
+                      of levels to form a new, merged level;
+        Output dictionary with format {<old_level>:<new_level>}
+    '''
+    
+    rule = {}
+    
+    for join_lev in joiners:
+        res_level = join_lev[0]
+        for lev in join_lev[1:]:
+            res_level += "_" + lev
+        for lev in join_lev:
+            rule[lev] = res_level
+            
+    return rule
