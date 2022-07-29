@@ -42,3 +42,9 @@ Functions which sepeed up data processing. Examples can be found here: https://g
 **pd_OHE** - one hot encoding for pandas.DataFrame. Result type steel pandas.DataFrame and columns have readable names, in fomat colname_catname;<br>
 **get_merge_repl_rule** - get a merging rule for the levels of some variable for further use in `pandas.Series.replace`; <br>
 **np_replace** - replacing funciton for numpy array.
+
+# model_description
+
+Tools for describing properties of different models. Examples can be found here: https://github.com/Dranikf/DS_common/blob/main/model_description.ipynb.
+
+**roc_by_preds** - plotly figure for ROC;
