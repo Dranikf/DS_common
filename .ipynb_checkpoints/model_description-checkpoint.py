@@ -1,7 +1,7 @@
 from sklearn.metrics import roc_curve
 import plotly.graph_objects as go
 
-def roc_by_preds(y_true, y_score, skl_roc_kwargs = {}, pltl_scatter_kwargs = {}):
+def pltl_roc_by_preds(y_true, y_score, skl_roc_kwargs = {}, pltl_scatter_kwargs = {}):
     '''
         Plotly figure for ROC.
         Input:
