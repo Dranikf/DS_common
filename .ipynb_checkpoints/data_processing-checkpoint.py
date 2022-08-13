@@ -49,7 +49,7 @@ def pd_OHE(df, sk_OHE_kwarg = {}):
         pandas.DataFrame and columns have readable names, in fomat colname_catname.
             Inputs:
                 df - pandas.DataFrame for one hot encoding;
-                sk_OHE_kwags - dict which contains sklearn.preprocessing.OneHotEncoding arguments.
+                sk_OHE_kwag - dict which contains sklearn.preprocessing.OneHotEncoding arguments.
             Output pandas.DataFrame with incoed features.
     '''
     
