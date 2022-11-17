@@ -80,7 +80,7 @@ def pd_OHE(df, sk_OHE_kwarg = {}):
 
 def np_replace(arr, rule):
     '''
-        Replacing funciton for numpy array.
+        For `numpy.array` replace values, by roole defined as dictionary.
         Inputs:
             arr - numpy array to be transformed;
             rule - rule as dict.
@@ -113,3 +113,25 @@ def get_merge_repl_rule(joiners):
             rule[lev] = res_level
             
     return rule
+
+def fix_pd_multiIndex(index):
+    '''
+        `padnas` has some problems with loading multilevel columns headers from excel. 
+        When different columns has different count of levels, result `pandas.DataFrame` 
+        will have maximum count of levels in each columns, and lower levels of columns 
+        wich in excel has less levels will renamed like `Unnamed: ...`. This function 
+        goal is change every name of wich starts from `Unnamed: ... ` in index to empty 
+        line in index.
+        
+        Input:
+            index - pd.MultiIndex, the index to be changed;
+        Output:
+            pd.MultiIndex the result of transformations.
+    '''
+    return  pd.MultiIndex.from_tuples([
+        tuple([
+            col_level if col_level.find("Unnamed:") == -1 else "" 
+            for col_level in col
+        ])
+        for col in index
+    ])
