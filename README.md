@@ -42,7 +42,8 @@ Functions which sepeed up data processing. Examples can be found here: https://g
 - **get_num_cond** - get condition for selection from pandas.DataFrame numeric data types;
 - **pd_OHE** - one hot encoding for pandas.DataFrame. Result type steel pandas.DataFrame and columns have readable names, in fomat colname_catname;
 - **get_merge_repl_rule** - get a merging rule for the levels of some variable for further use in `pandas.Series.replace`;
-- **np_replace** - for `numpy.array` replace values, by roole defined as dictionary.
+- **np_replace** - for `numpy.array` replace values, by roole defined as dictionary;
+- **fix_pd_multiIndex** - changes `Unnamed` to empty line string in pandas multiIndex.
 
 # model_description
 
