@@ -10,14 +10,31 @@ def insert_next(df, col_name, transform_col, new_name = None):
         Insertion to data frame after given colum
             Inputs:
                 df - pandas.DataFrame in which the insertion is required;
-                col_name - str the name of the column after which insertion is required;
+                col_name - str or tuple the name of the column after which insertion is required;
                 transform_col - pandas.Series to be inserted;
-                new_name - str name of new column, by default col_name + "_transf" will used.
+                new_name - str or tuple name of new column, by default col_name + "_transf" will used.
             Output
                 pd.DataFrame with inserted column.
     '''
+    df = df.copy()
+    
+    if (
+        df.columns.__class__ == pd.MultiIndex and 
+        col_name.__class__ == str
+    ):
+        warn(
+            """
+            For tables with columns.__class__ == pd.MultiIndex, not allowed using
+            col_name of type str. Try better typle.
+            """,
+            category = RuntimeWarning
+        )
+    
     if new_name is None:
-        new_name = col_name + "_transf"
+        if col_name.__class__ == str:
+            new_name = str(col_name) + "_transf"
+        elif col_name.__class__  == tuple:
+            new_name = tuple([str(c_name) + " _transf" for c_name in col_name])
     
     if new_name in df.columns:
         df[new_name] = transform_col
