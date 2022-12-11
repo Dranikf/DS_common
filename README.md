@@ -5,7 +5,7 @@ It contains the following groups:
 
 # visualisation
 Funcitons which solve some problems associated with data visualisation.
-Exampes here: https://github.com/Dranikf/DS_common/blob/main/visualisations_test.ipynb
+Examples here: https://github.com/Dranikf/DS_common/blob/main/visualisations_test.ipynb
 
 - **get_meshtraces** - helps to get arguments for `set_traces` method of figure with using `numpy.meshgrid`;
 - **pltl_dual_side_arrow** - get list of annotations wich helps to build dual side arrows.
