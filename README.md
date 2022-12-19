@@ -14,9 +14,9 @@ Examples here: https://github.com/Dranikf/DS_common/blob/main/visualisations_tes
 
 Functions which will help to show data in nice form. Examples can be found here: https://github.com/Dranikf/DS_common/blob/main/data_description.ipynb
 
-- **get_col_av_values** - helps to get availible values of `pandas.Series` in one line of code;<br>
-- **get_col_obj_count** - for object or categorial column returns number of levels as string, and "-" for numeric variable;
-- **get_columns_desription** - for every column `pandas.DataFrame` returns data type, availible values, number of values and count of NA values;
+- **get_col_av_values** - Get availible values in getted column. Makes different for numeric dtypes and others. For numeric dtypes returns range like "[min, max]". For non-numeric dtypes returns possible values;
+- **get_col_obj_unique_count** - for non-numeric pandas.Series, returns a count of unique values; for numeric variables returns "-";
+- **get_Dran_col_descr** - Return the panas.Series most complete description specified for me;
 - **get_most_freq** - returns value from series which has the most frequent manifestation of the trait specified in cond;
 - **ECDFs_by_classes** - statsmodels.distributions.empirical_distribution.ECDF wrapper which allows to build different ecdfs for different classes.
 
