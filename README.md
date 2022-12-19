@@ -44,9 +44,3 @@ Functions which sepeed up data processing. Examples can be found here: https://g
 - **get_merge_repl_rule** - get a merging rule for the levels of some variable for further use in `pandas.Series.replace`;
 - **np_replace** - for `numpy.array` replace values, by roole defined as dictionary;
 - **fix_pd_multiIndex** - changes `Unnamed` to empty line string in pandas multiIndex.
-
-# model_description
-
-Tools for describing properties of different models. Examples can be found here: https://github.com/Dranikf/DS_common/blob/main/model_description.ipynb.
-
-- **pltl_roc_by_preds** - plotly figure for ROC.
