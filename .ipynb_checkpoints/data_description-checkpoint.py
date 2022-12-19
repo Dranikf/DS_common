@@ -3,6 +3,8 @@
 import pandas as pd
 import numpy as np
 
+from statsmodels.distributions.empirical_distribution import ECDF
+
 def get_col_av_values(col):
     '''get availible values in getted column'''
     # input:
@@ -76,3 +78,32 @@ def get_most_freq_by_cond(ser, cond):
             
     '''
     return (ser[cond].value_counts()/ser.value_counts()).idxmax()
+
+
+
+def ECDFs_by_classes(
+    val_col, classes_markers, 
+    side = "right", functions = False
+):
+    '''
+        statsmodels.distributions.empirical_distribution.ECDF wrapper which
+        allows to build different ecdfs for different classes.
+        inputs:
+            val_col - np.array, which will used as argument of ecdfs;
+            classes_markers - np.array, which allows us to divide observations into classes;
+            side - str or list, defines the shape of the intervals constituting the steps. 
+                                ‘right’ correspond to [a, b) intervals and ‘left’ to (a, b].
+            functions - bool, defines the type of the result, 
+                              it can be computed values or functions.
+    '''
+    unique_markers = np.unique(classes_markers)
+    
+    res = {}
+    if (not hasattr(side, "__iter__")) | (type(side) == str):
+        side = [side]*len(unique_markers)
+    
+    for i, cm in enumerate(unique_markers):
+        ecdf = ECDF(val_col[classes_markers == cm], side = side[i])
+        res[cm] = ecdf if functions else ecdf(val_col)
+        
+    return res
