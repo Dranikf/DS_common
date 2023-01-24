@@ -62,19 +62,23 @@ def get_num_cond(df):
 
 
 
-def pd_OHE(df, sk_OHE_kwarg = {}):
+def pd_OHE(
+    df, col_names_format = "{col_name}{{{cat}}}", 
+    sk_OHE_kwarg = {}
+):
     '''
         One hot encoding for pandas.DataFrame. Result type steel
         pandas.DataFrame and columns have readable names, in fomat colname_catname.
             Inputs:
                 df - pandas.DataFrame for one hot encoding;
-                sk_OHE_kwag - dict which contains sklearn.preprocessing.OneHotEncoding arguments.
+                sk_OHE_kwag - dict which contains sklearn.preprocessing.OneHotEncoding arguments;
+                col_names_format - format of output columns names, for more look examples.
             Output pandas.DataFrame with incoed features.
     '''
     
     def name_cat(cats, name, drop_idx = None):
         '''
-            For givent categoryes and name
+            For given categories and name
             returns list of strings "category_name" with
             len of cats array
         '''
@@ -83,7 +87,12 @@ def pd_OHE(df, sk_OHE_kwarg = {}):
         if not drop_idx is None:
             cats = np.delete(cats, drop_idx)
             
-        return list(map(lambda x: name + "_" + str(x), cats))
+        return list(map(
+            lambda x: col_names_format.format(
+                col_name = name, cat = str(x)
+            ), 
+            cats
+        ))
     
     sk_OHE_kwarg["sparse_output"] = False
     my_ohe = OneHotEncoder(**sk_OHE_kwarg).fit(df)
@@ -91,6 +100,7 @@ def pd_OHE(df, sk_OHE_kwarg = {}):
     columns = []
     for i in range(len(my_ohe.categories_)):
         if not my_ohe.drop_idx_ is None:
+            # if it's needed to drop some categories
             columns += name_cat(my_ohe.categories_[i], df.columns[i], drop_idx = my_ohe.drop_idx_[i])
         else:
             columns += name_cat(my_ohe.categories_[i], df.columns[i])
@@ -112,13 +122,15 @@ def np_replace(arr, rule):
         
     return np.array(list(map(replacer, arr.ravel()))).reshape(arr.shape)
 
-def get_merge_repl_rule(joiners):
+def get_merge_repl_rule(joiners, lev_separator = "_"):
     '''
         Get an merging rule for the levels of some variable 
         for further use in pandas.Series.replace
         Inputs:
             joiners - where each nested list is a list 
                       of levels to form a new, merged level;
+            lev_separator - the symbol that will separate the old 
+                            markers in the new markers;
         Output dictionary with format {<old_level>:<new_level>}
     '''
     
@@ -127,7 +139,7 @@ def get_merge_repl_rule(joiners):
     for join_lev in joiners:
         res_level = join_lev[0]
         for lev in join_lev[1:]:
-            res_level += "_" + lev
+            res_level += lev_separator + lev
         for lev in join_lev:
             rule[lev] = res_level
             
