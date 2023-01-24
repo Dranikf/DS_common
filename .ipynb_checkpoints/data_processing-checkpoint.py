@@ -85,7 +85,7 @@ def pd_OHE(df, sk_OHE_kwarg = {}):
             
         return list(map(lambda x: name + "_" + str(x), cats))
     
-    sk_OHE_kwarg["sparse"] = False
+    sk_OHE_kwarg["sparse_output"] = False
     my_ohe = OneHotEncoder(**sk_OHE_kwarg).fit(df)
     
     columns = []
