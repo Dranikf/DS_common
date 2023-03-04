@@ -3,6 +3,8 @@
 import pandas as pd
 import numpy as np
 
+from warnings import warn
+
 from statsmodels.distributions.empirical_distribution import ECDF
 from sklearn import metrics
 
@@ -113,6 +115,48 @@ def ECDFs_by_classes(
 
 
 def conf_table(y_true, y_pred, thresholds = None):
+    '''
+    Returns table that contains the information from confusion
+    matrix, but for given thresholds.
+    Input:
+        y_true - np.array real labels of classes 
+                 for observations (1-positive, 0-negative);
+        y_pred - np.array predicted probabilities that 
+                 observations belongs to positive class;
+        thresholds - list of thresholds for wich confusion
+                     matrix should be computed. By default None, 
+                     and will use same array as y_pred;
+    Output:
+        pandas.DataFrame - which contains TN, FP, FN, TP 
+                           and relvant rates.
+    '''
+
+    warn("Function name have been changed to `get_conf_table`, and this variant should be deleted before 4.04.2023.")
+
+    if type(thresholds) == type(None):
+        thresholds = np.sort(y_pred)
+
+    res_frame = pd.DataFrame(
+        list(map(
+            lambda p: metrics.confusion_matrix(y_true, y_pred > p).ravel(),
+            thresholds
+        )),
+        index = thresholds,
+        columns = ["TN", "FP", "FN", "TP"]
+    )
+    res_frame.index.name = "treshold"
+
+    N = res_frame["FP"] + res_frame["TN"]
+    res_frame["TNR"] = res_frame["TN"]/N
+    res_frame["FPR"] = res_frame["FP"]/N
+
+    P = res_frame["TP"] + res_frame["FN"]
+    res_frame["FNR"] = res_frame["FN"]/P
+    res_frame["TPR"] = res_frame["TP"]/P
+
+    return res_frame
+
+def get_conf_table(y_true, y_pred, thresholds = None):
     '''
     Returns table that contains the information from confusion
     matrix, but for given thresholds.
