@@ -19,7 +19,7 @@ Functions which will help to show data in nice form. Examples can be found here:
 - **get_Dran_col_descr** - Return the panas.Series most complete description specified for me;
 - **get_most_freq** - returns value from series which has the most frequent manifestation of the trait specified in cond;
 - **ECDFs_by_classes** - statsmodels.distributions.empirical_distribution.ECDF wrapper which allows to build different ecdfs for different classes;
-- **conf_table** - returns table that contains the information from confusion matrix, but for given thresholds.
+- **get_conf_table** - returns table that contains the information from confusion matrix, but for given thresholds.
 
 # emissions
 
