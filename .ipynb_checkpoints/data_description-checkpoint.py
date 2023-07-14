@@ -3,7 +3,10 @@
 import pandas as pd
 import numpy as np
 
+from warnings import warn
+
 from statsmodels.distributions.empirical_distribution import ECDF
+from sklearn import metrics
 
 def get_col_av_values(col):
     '''
@@ -109,3 +112,84 @@ def ECDFs_by_classes(
         res[cm] = ecdf if functions else ecdf(val_col)
         
     return res
+
+def get_conf_table(y_true, y_pred, thresholds = None):
+    '''
+    Returns table that contains the information from confusion
+    matrix, but for given thresholds.
+    Input:
+        y_true - np.array real labels of classes 
+                 for observations (1-positive, 0-negative);
+        y_pred - np.array predicted probabilities that 
+                 observations belongs to positive class;
+        thresholds - list of thresholds for wich confusion
+                     matrix should be computed. By default None, 
+                     and will use same array as y_pred;
+    Output:
+        pandas.DataFrame - which contains TN, FP, FN, TP 
+                           and relvant rates.
+    '''
+
+    if type(thresholds) == type(None):
+        thresholds = np.sort(y_pred)
+
+    res_frame = pd.DataFrame(
+        list(map(
+            lambda p: metrics.confusion_matrix(y_true, y_pred > p).ravel(),
+            thresholds
+        )),
+        index = thresholds,
+        columns = ["TN", "FP", "FN", "TP"]
+    )
+    res_frame.index.name = "treshold"
+
+    N = res_frame["FP"] + res_frame["TN"]
+    res_frame["TNR"] = res_frame["TN"]/N
+    res_frame["FPR"] = res_frame["FP"]/N
+
+    P = res_frame["TP"] + res_frame["FN"]
+    res_frame["FNR"] = res_frame["FN"]/P
+    res_frame["TPR"] = res_frame["TP"]/P
+
+    return res_frame
+
+ru_scoring_rename_rule = {
+    "TN" : "Верно выданные (шт.)",
+    "FP" : "Ошибочно удержанные (шт.)",
+    "FN" : "Ошибочно выданные (шт.)",
+    "TP" : "Верно удержанные (шт.)",
+    "TNR" : "Верно выданные (% от хороших)",
+    "FPR" : "Ошибочно удержанные (% от хороших)",
+    "FNR" : "Ошибочно выданные (% от дефолта)",
+    "TPR" : "Верно удержанные (% от дефолта)"
+}
+
+
+def cum_count(classes):
+    '''
+    Cumulative count of classes.
+    Input:
+        classes - numpy.array, observated classes.
+    Output: dictionary with format 
+    ```
+        {
+            <class 1> : <cumulative counts of class 1>,
+            <class 2> : <cumulative counts of class 2>,
+            ...
+            <class m> : <cumulative counts of class m>
+        }
+    ```
+    '''
+    classes_values = np.unique(classes)
+    classes_res = {c:[0] for c in classes_values}
+    
+    for c1 in classes:
+        for c2 in classes_values:
+            classes_res[c2].append(
+                classes_res[c2][-1]+ (1 if c1 == c2 else 0)
+            )
+
+    for val in classes_res.values():
+        del val[0]
+    
+    return classes_res

@@ -163,3 +163,33 @@ ru_scoring_rename_rule = {
     "FNR" : "Ошибочно выданные (% от дефолта)",
     "TPR" : "Верно удержанные (% от дефолта)"
 }
+
+
+def cum_count(classes):
+    '''
+    Cumulative count of classes.
+    Input:
+        classes - numpy.array, observated classes.
+    Output: dictionary with format 
+    ```
+        {
+            <class 1> : <cumulative counts of class 1>,
+            <class 2> : <cumulative counts of class 2>,
+            ...
+            <class m> : <cumulative counts of class m>
+        }
+    ```
+    '''
+    classes_values = np.unique(classes)
+    classes_res = {c:[0] for c in classes_values}
+    
+    for c1 in classes:
+        for c2 in classes_values:
+            classes_res[c2].append(
+                classes_res[c2][-1]+ (1 if c1 == c2 else 0)
+            )
+
+    for val in classes_res.values():
+        del val[0]
+    
+    return classes_res
